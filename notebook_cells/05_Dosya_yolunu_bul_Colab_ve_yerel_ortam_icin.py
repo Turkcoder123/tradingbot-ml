@@ -1,17 +1,36 @@
 # --- Step 3: Load and Preprocess Data (OHLCV + Multi-Timeframe) ---
 import os
-# Dosya yolunu bul - Colab ve yerel ortam icin
-file_path = 'Data/EURUSD_5m_10Yea.csv'
-if not os.path.exists(file_path):
-    # Colab'da farkli yollarda ara
-    for p in [
-        '/content/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',
-        '../Data/EURUSD_5m_10Yea.csv',
-    ]:
-        if os.path.exists(p):
-            file_path = p
+import sys
+
+# Dosya yolunu bul - GitHub'dan klonlandiginda bile calissin
+# Once notebook'un (veya script'in) bulundugu dizini belirle
+script_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else os.getcwd()
+# Proje kok dizini (tradingbot-ml) - script_dir ya tradingbot-ml ya da tradingbot-ml/notebook_cells olabilir
+project_root = script_dir if script_dir.endswith('tradingbot-ml') else os.path.dirname(script_dir)
+
+# Aranacak yollar (oncelik sirasina gore)
+file_paths = [
+    os.path.join(project_root, 'Data', 'EURUSD_5m_10Yea.csv'),       # Yerel/GitHub
+    'Data/EURUSD_5m_10Yea.csv',                                       # Notebook calisma dizini
+    '/content/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',                 # Colab
+]
+
+file_path = None
+for p in file_paths:
+    if os.path.exists(p):
+        file_path = p
+        break
+
+if file_path is None:
+    # Son care: mevcut dizinde ve alt dizinlerde ara
+    for root, dirs, files in os.walk(os.getcwd()):
+        if 'EURUSD_5m_10Yea.csv' in files:
+            file_path = os.path.join(root, 'EURUSD_5m_10Yea.csv')
             break
+
 print(f'Veri: {file_path}')
+assert file_path is not None, "EURUSD_5m_10Yea.csv bulunamadi!"
+assert os.path.exists(file_path), f"Dosya mevcut degil: {file_path}"
 df_raw = pd.read_csv(file_path)
 
 # Parse timestamp
