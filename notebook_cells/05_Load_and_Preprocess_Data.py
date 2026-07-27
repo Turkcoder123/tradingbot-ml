@@ -1,8 +1,7 @@
 # --- Step 3: Load and Preprocess Data (OHLCV + Multi-Timeframe) ---
 import os
 
-# Colab'da cell_01 ile /content/tradingbot-ml dizinine klonlanip cd yapildi
-# Veri yolu: /content/tradingbot-ml/Data/EURUSD_5m_10Yea.csv
+# Cell 01 zaten GitHub'dan klonlanmis dizine cd yapti -> Data/EURUSD_5m_10Yea.csv hazir
 file_path = 'Data/EURUSD_5m_10Yea.csv'
 assert os.path.exists(file_path), f"Veri dosyasi bulunamadi: {os.path.abspath(file_path)}"
 print(f'Veri: {os.path.abspath(file_path)}')

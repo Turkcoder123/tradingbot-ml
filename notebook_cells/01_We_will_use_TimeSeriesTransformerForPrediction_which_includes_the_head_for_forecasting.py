@@ -1,21 +1,28 @@
-# --- Step 1: Clone Repository and Install Dependencies ---
-
-# Colab'da GitHub'dan klonla (daha once klonlanmadiysa)
+# --- Step 1: Clone Repository & Install Dependencies ---
 import os, sys
+
+# Platforma gore klon dizini (sadece burasi degisir)
+# Colab -> /content, Kaggle -> /kaggle/working, Local -> . (gecerli dizin)
+if os.path.exists('/content'):
+    CLONE_DIR = '/content/tradingbot-ml'
+elif os.path.exists('/kaggle/working'):
+    CLONE_DIR = '/kaggle/working/tradingbot-ml'
+else:
+    CLONE_DIR = 'tradingbot-ml'  # Local: mevcut dizin altinda
+
 REPO_URL = "https://github.com/Turkcoder123/tradingbot-ml.git"
-CLONE_DIR = "/content/tradingbot-ml"
 
 if not os.path.exists(CLONE_DIR):
     print(f"Cloning repository from {REPO_URL}...")
     !git clone {REPO_URL} {CLONE_DIR}
-    %cd {CLONE_DIR}
 else:
-    print(f"Repository already cloned at {CLONE_DIR}")
+    print(f"Repository already cloned. Pulling latest changes...")
     %cd {CLONE_DIR}
-    # Guncel degisiklikleri cek
     !git pull
+    %cd ..
 
-print(f"Current working directory: {os.getcwd()}")
+%cd {CLONE_DIR}
+print(f"Working directory: {os.getcwd()}")
 
 !pip install transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib -q
 
@@ -28,9 +35,7 @@ from tqdm.notebook import trange, tqdm
 
 import torch
 import torch.nn as nn
-# --- Transformers Library ---
-# We will use TimeSeriesTransformerForPrediction which includes the head for forecasting
-from transformers import TimeSeriesTransformerForPrediction, TimeSeriesTransformerConfig # <--- CORRECTED LINE
+from transformers import TimeSeriesTransformerForPrediction, TimeSeriesTransformerConfig
 
 from torch.utils.data import Dataset, DataLoader
 from torch.optim import AdamW
