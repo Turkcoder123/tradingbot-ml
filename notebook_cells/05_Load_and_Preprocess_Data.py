@@ -2,17 +2,15 @@
 import os
 import sys
 
-# Dosya yolunu bul - GitHub'dan klonlandiginda bile calissin
-# Once notebook'un (veya script'in) bulundugu dizini belirle
+# Dosya yolunu bul - GitHub'dan klonlandiginda calissin
 script_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else os.getcwd()
-# Proje kok dizini (tradingbot-ml) - script_dir ya tradingbot-ml ya da tradingbot-ml/notebook_cells olabilir
+# Proje kok dizini (tradingbot-ml)
 project_root = script_dir if script_dir.endswith('tradingbot-ml') else os.path.dirname(script_dir)
 
 # Aranacak yollar (oncelik sirasina gore)
 file_paths = [
-    os.path.join(project_root, 'Data', 'EURUSD_5m_10Yea.csv'),       # Yerel/GitHub
-    'Data/EURUSD_5m_10Yea.csv',                                       # Notebook calisma dizini
-    '/content/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',                 # Colab
+    os.path.join(project_root, 'Data', 'EURUSD_5m_10Yea.csv'),  # GitHub klonu
+    'Data/EURUSD_5m_10Yea.csv',                                  # Calisma dizini
 ]
 
 file_path = None
