@@ -77,4 +77,25 @@ def create_technical_features(df):
     
     return df_feat
 
+# --- Feature and Target Column Definitions ---
+FEATURE_COLUMNS = [
+    'hour', 'day_of_week', 'day_of_month', 'month',
+    'Open', 'High', 'Low', 'Close', 'Volume',
+    'Range_5m', 'Range_1h', 'Range_1d',
+    'returns_5m', 'log_returns_5m',
+    'hl_ratio', 'oc_ratio', 'upper_shadow', 'lower_shadow',
+    'sma_5_ratio', 'sma_10_ratio', 'sma_20_ratio', 'sma_50_ratio',
+    'rsi_14_norm', 'macd_norm', 'macd_hist',
+    'volatility_20', 'volatility_50', 'atr_14_norm',
+    'volume_ratio',
+    'price_vs_1h_range', 'price_vs_1d_range',
+    'return_1h', 'return_1d',
+    'volume_5m_vs_1h', 'volume_5m_vs_1d',
+    'range_ratio_5m_vs_1h', 'range_ratio_5m_vs_1d'
+]
+TARGET_COLUMNS = ['Open', 'High', 'Low', 'Close']
+HISTORY_LENGTH = CONTEXT_LENGTH + max(LAGS_SEQUENCE)
+print(f'Features: {len(FEATURE_COLUMNS)}, Targets: {len(TARGET_COLUMNS)} (OHLC)')
+print(f'HISTORY_LENGTH: {HISTORY_LENGTH}')
+
 print("Feature engineering function defined.")

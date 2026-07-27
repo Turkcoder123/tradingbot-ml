@@ -1,5 +1,31 @@
 # --- Step 1: Install and Import Necessary Libraries ---
 
+# --- Google Drive Mount (Colab icin) ---
+import sys
+IN_COLAB = 'google.colab' in sys.modules
+if IN_COLAB:
+    from google.colab import drive
+    drive.mount('/content/drive')
+    import os
+    # Notebook'un bulundugu klasore git
+    import os.path
+    # Dosyayi proje kokunde ara
+    if not os.path.exists('Data'):
+        # Drive'da ara
+        possible = [
+            '/content/drive/MyDrive/tradingbot-ml',
+            '/content/drive/MyDrive/Colab Notebooks/tradingbot-ml',
+        ]
+        for p in possible:
+            if os.path.exists(os.path.join(p, 'Data')):
+                os.chdir(p)
+                print(f'Calisma dizini: {p}')
+                break
+    print(f'Mevcut dizin: {os.getcwd()}')
+    print(f'Data klasoru var: {os.path.isdir("Data")}')
+else:
+    print('Yerel ortamda calisiyor')
+
 !pip install transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib -q
 
 import pandas as pd

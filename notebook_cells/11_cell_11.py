@@ -1,1 +1,38 @@
-# --- Step 6: Create PyTorch Datasets and DataLoaders (Multi-Output Multi-Feature) ---# The length of the history provided to the model must accommodate the context and max lag.HISTORY_LENGTH = CONTEXT_LENGTH + max(LAGS_SEQUENCE)# Define feature columns for the model (input features)FEATURE_COLUMNS = [    # Time features    'hour', 'day_of_week', 'day_of_month', 'month',    # Price features (scaled)    'Open', 'High', 'Low', 'Close', 'Volume',    # Range features    'Range_5m', 'Range_1h', 'Range_1d',    # Returns and momentum    'returns_5m', 'log_returns_5m',    # OHLC relationships    'hl_ratio', 'oc_ratio', 'upper_shadow', 'lower_shadow',    # Moving average ratios    'sma_5_ratio', 'sma_10_ratio', 'sma_20_ratio', 'sma_50_ratio',    # RSI    'rsi_14_norm',    # MACD    'macd_norm', 'macd_hist',    # Volatility    'volatility_20', 'volatility_50', 'atr_14_norm',    # Volume    'volume_ratio',    # Multi-timeframe    'price_vs_1h_range', 'price_vs_1d_range',    'return_1h', 'return_1d',    'volume_5m_vs_1h', 'volume_5m_vs_1d',    'range_ratio_5m_vs_1h', 'range_ratio_5m_vs_1d']# Target columns (what we predict - multi-output)TARGET_COLUMNS = ['Open', 'High', 'Low', 'Close']class TimeSeriesDataset(Dataset):    def __init__(self, target_df, feature_df, history_length, prediction_length, feature_columns, target_columns):        self.history_length = history_length        self.prediction_length = prediction_length        self.feature_columns = feature_columns        self.target_columns = target_columns                # Target (what we predict) - Multi-output: O, H, L, C        self.targets = torch.from_numpy(target_df[target_columns].values).float()                # Features (input to model)        self.features = torch.from_numpy(feature_df[feature_columns].values).float()                # Handle NaN values in features        self.features = torch.nan_to_num(self.features, nan=0.0, posinf=0.0, neginf=0.0)        self.targets = torch.nan_to_num(self.targets, nan=0.0, posinf=0.0, neginf=0.0)            def __len__(self):        return len(self.targets) - self.history_length - self.prediction_length + 1        def __getitem__(self, idx):        start_idx = idx        end_idx_history = start_idx + self.history_length        end_idx_prediction = start_idx + self.history_length + self.prediction_length                # For multi-output: use Close as primary past_values (for compatibility)        # but targets include all OHLC        past_close = self.targets[start_idx:end_idx_history, 3]  # Close is index 3                return {            'past_values': past_close,  # Keep Close as primary for transformer compatibility            'past_time_features': self.features[start_idx:end_idx_history],            'future_values': self.targets[end_idx_history:end_idx_prediction],  # Multi-output: O,H,L,C            'future_time_features': self.features[end_idx_history:end_idx_prediction],        }# Apply technical featuresprint("Creating technical features...")train_features = create_technical_features(train_df)val_features = create_technical_features(val_df)test_features = create_technical_features(test_df)# Drop rows with NaN from rolling calculationstrain_features = train_features.dropna()val_features = val_features.dropna()test_features = test_features.dropna()print(f"After feature engineering - Train: {len(train_features)}, Val: {len(val_features)}, Test: {len(test_features)}")print(f"Number of input features: {len(FEATURE_COLUMNS)}")print(f"Number of output targets: {len(TARGET_COLUMNS)} (Open, High, Low, Close)")# Create dataset instancestrain_dataset = TimeSeriesDataset(train_features, train_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)val_dataset = TimeSeriesDataset(val_features, val_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)test_dataset = TimeSeriesDataset(test_features, test_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)# Create DataLoader instancestrain_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)val_dataloader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=2)test_dataloader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=2)print("PyTorch Datasets and DataLoaders are ready with multi-output support.")
+# --- Step 6: Dataset ---
+class TimeSeriesDataset(Dataset):
+    def __init__(self, df, history_length, prediction_length, feature_columns, target_columns):
+        self.history_length = history_length
+        self.prediction_length = prediction_length
+        self.feature_columns = feature_columns
+        self.target_columns = target_columns
+        self.close_idx = df.columns.get_loc('Close')
+        self.target_indices = [df.columns.get_loc(c) for c in target_columns]
+        data = torch.from_numpy(df.values).float()
+        self.data = torch.nan_to_num(data, nan=0.0)
+    def __len__(self):
+        return len(self.data) - self.history_length - self.prediction_length + 1
+    def __getitem__(self, idx):
+        he = idx + self.history_length
+        pe = he + self.prediction_length
+        return {
+            'past_values': self.data[idx:he, self.close_idx],         # [hist_len]
+            'past_time_features': self.data[idx:he, :4],              # [hist_len, 4]
+            'future_values': self.data[he:pe, self.close_idx],       # [pred_len]
+            'future_ohlc': self.data[he:pe][:, self.target_indices], # [pred_len, 4]
+            'future_time_features': self.data[he:pe, :4],             # [pred_len, 4]
+        }
+
+print('Feature engineering...')
+train_features = create_technical_features(train_df).dropna()
+val_features = create_technical_features(val_df).dropna()
+test_features = create_technical_features(test_df).dropna()
+print(f'Train: {len(train_features)}, Val: {len(val_features)}, Test: {len(test_features)}')
+train_dataset = TimeSeriesDataset(train_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)
+val_dataset = TimeSeriesDataset(val_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)
+test_dataset = TimeSeriesDataset(test_features, HISTORY_LENGTH, PREDICTION_LENGTH, FEATURE_COLUMNS, TARGET_COLUMNS)
+train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+val_dataloader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
+test_dataloader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
+print('Datasets ready.')
+print(f'Features: {len(FEATURE_COLUMNS)}, Targets: {len(TARGET_COLUMNS)} (OHLC)')
+print(f'Train batches: {len(train_dataloader)}')

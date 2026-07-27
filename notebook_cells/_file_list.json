@@ -9,9 +9,9 @@
   {
     "index": 1,
     "cell_type": "code",
-    "filename": "01_We_will_use_TimeSeriesTransformerForPrediction_which_includes_the_head_for_forecasting.py",
-    "title": "We will use TimeSeriesTransformerForPrediction which includes the head for forecasting",
-    "source_len": 1057
+    "filename": "01_Notebook_un_bulundugu_klasore_git.py",
+    "title": "Notebook'un bulundugu klasore git",
+    "source_len": 1868
   },
   {
     "index": 2,
@@ -37,9 +37,9 @@
   {
     "index": 5,
     "cell_type": "code",
-    "filename": "05_Parse_timestamp.py",
-    "title": "Parse timestamp",
-    "source_len": 2240
+    "filename": "05_Dosya_yolunu_bul_Colab_ve_yerel_ortam_icin.py",
+    "title": "Dosya yolunu bul - Colab ve yerel ortam icin",
+    "source_len": 3005
   },
   {
     "index": 6,
@@ -53,7 +53,7 @@
     "cell_type": "code",
     "filename": "07_OHLC_relationships.py",
     "title": "OHLC relationships",
-    "source_len": 4075
+    "source_len": 4962
   },
   {
     "index": 8,
@@ -67,7 +67,7 @@
     "cell_type": "code",
     "filename": "09_Scale_target__Close_price__fit_on_training_data_ONLY.py",
     "title": "Scale target (Close price) - fit on training data ONLY",
-    "source_len": 989
+    "source_len": 1129
   },
   {
     "index": 10,
@@ -81,7 +81,7 @@
     "cell_type": "code",
     "filename": "11_cell_11.py",
     "title": "cell_11",
-    "source_len": 4376
+    "source_len": 2340
   },
   {
     "index": 12,
@@ -93,9 +93,9 @@
   {
     "index": 13,
     "cell_type": "code",
-    "filename": "13_Custom_wrapper_for_multi_output_prediction.py",
-    "title": "Custom wrapper for multi-output prediction",
-    "source_len": 3314
+    "filename": "13_decoder_hidden_states__1____batch__pred_len__d_model___requires_output_hidden_states_True.py",
+    "title": "decoder_hidden_states[-1]: [batch, pred_len, d_model] (requires output_hidden_states=True)",
+    "source_len": 2478
   },
   {
     "index": 14,
@@ -107,9 +107,9 @@
   {
     "index": 15,
     "cell_type": "code",
-    "filename": "15_Hyperparameters_for_spread_commission_awareness.py",
-    "title": "Hyperparameters for spread/commission awareness",
-    "source_len": 3371
+    "filename": "15_cell_15.py",
+    "title": "cell_15",
+    "source_len": 2477
   },
   {
     "index": 16,
@@ -121,9 +121,9 @@
   {
     "index": 17,
     "cell_type": "code",
-    "filename": "17_Get_multi_output_predictions__loc_is__batch__pred_len__4.py",
-    "title": "Get multi-output predictions: loc is [batch, pred_len, 4]",
-    "source_len": 5609
+    "filename": "17_cell_17.py",
+    "title": "cell_17",
+    "source_len": 1704
   },
   {
     "index": 18,
@@ -149,8 +149,8 @@
   {
     "index": 21,
     "cell_type": "code",
-    "filename": "21_Save_model_weights.py",
-    "title": "Save model weights",
-    "source_len": 2754
+    "filename": "21_cell_21.py",
+    "title": "cell_21",
+    "source_len": 506
   }
 ]

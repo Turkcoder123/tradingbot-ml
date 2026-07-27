@@ -1,5 +1,28 @@
 # --- Step 3: Load and Preprocess Data (OHLCV + Multi-Timeframe) ---
-file_path = 'Data/EURUSD_5m_10Yea.csv'
+import os
+# Dosya yolunu bul - Colab ve yerel ortam icin
+possible_paths = [
+    'Data/EURUSD_5m_10Yea.csv',
+    '/content/drive/MyDrive/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',
+    '/content/drive/MyDrive/Colab Notebooks/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',
+    '../Data/EURUSD_5m_10Yea.csv',
+]
+file_path = None
+for p in possible_paths:
+    if os.path.exists(p):
+        file_path = p
+        print(f'Veri dosyasi bulundu: {p}')
+        break
+if file_path is None:
+    # Kullaniciya sor
+    import glob
+    csv_files = glob.glob('**/*.csv', recursive=True)
+    csv_files = [f for f in csv_files if 'EURUSD' in f or 'eurusd' in f]
+    if csv_files:
+        file_path = csv_files[0]
+        print(f'Bulunan CSV: {file_path}')
+    else:
+        raise FileNotFoundError('EURUSD CSV dosyasi bulunamadi!')
 df_raw = pd.read_csv(file_path)
 
 # Parse timestamp
