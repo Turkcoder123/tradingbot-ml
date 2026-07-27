@@ -1,0 +1,156 @@
+[
+  {
+    "index": 0,
+    "cell_type": "markdown",
+    "filename": "00_Cell_1__Setup_and_Imports.md",
+    "title": "Cell 1: Setup and Imports",
+    "source_len": 174
+  },
+  {
+    "index": 1,
+    "cell_type": "code",
+    "filename": "01_We_will_use_TimeSeriesTransformerForPrediction_which_includes_the_head_for_forecasting.py",
+    "title": "We will use TimeSeriesTransformerForPrediction which includes the head for forecasting",
+    "source_len": 1057
+  },
+  {
+    "index": 2,
+    "cell_type": "markdown",
+    "filename": "02_Cell_2__Configure_Model_and_Training_Hyperparameters.md",
+    "title": "Cell 2: Configure Model and Training Hyperparameters",
+    "source_len": 111
+  },
+  {
+    "index": 3,
+    "cell_type": "code",
+    "filename": "03_cell_03.py",
+    "title": "cell_03",
+    "source_len": 828
+  },
+  {
+    "index": 4,
+    "cell_type": "markdown",
+    "filename": "04_Cell_3__Data_Loading_and_Preprocessing.md",
+    "title": "Cell 3: Data Loading and Preprocessing",
+    "source_len": 193
+  },
+  {
+    "index": 5,
+    "cell_type": "code",
+    "filename": "05_Parse_timestamp.py",
+    "title": "Parse timestamp",
+    "source_len": 2240
+  },
+  {
+    "index": 6,
+    "cell_type": "markdown",
+    "filename": "06_Cell_4__Feature_Engineering_and_Data_Splitting.md",
+    "title": "Cell 4: Feature Engineering and Data Splitting",
+    "source_len": 238
+  },
+  {
+    "index": 7,
+    "cell_type": "code",
+    "filename": "07_OHLC_relationships.py",
+    "title": "OHLC relationships",
+    "source_len": 4075
+  },
+  {
+    "index": 8,
+    "cell_type": "markdown",
+    "filename": "08_Step_5__Data_Scaling.md",
+    "title": "Step 5: Data Scaling",
+    "source_len": 160
+  },
+  {
+    "index": 9,
+    "cell_type": "code",
+    "filename": "09_Scale_target__Close_price__fit_on_training_data_ONLY.py",
+    "title": "Scale target (Close price) - fit on training data ONLY",
+    "source_len": 989
+  },
+  {
+    "index": 10,
+    "cell_type": "markdown",
+    "filename": "10_Step_6__PyTorch_Dataset_and_DataLoader_Creation.md",
+    "title": "Step 6: PyTorch Dataset and DataLoader Creation",
+    "source_len": 274
+  },
+  {
+    "index": 11,
+    "cell_type": "code",
+    "filename": "11_cell_11.py",
+    "title": "cell_11",
+    "source_len": 4376
+  },
+  {
+    "index": 12,
+    "cell_type": "markdown",
+    "filename": "12_Step_7__Model_Definition.md",
+    "title": "Step 7: Model Definition",
+    "source_len": 171
+  },
+  {
+    "index": 13,
+    "cell_type": "code",
+    "filename": "13_Custom_wrapper_for_multi_output_prediction.py",
+    "title": "Custom wrapper for multi-output prediction",
+    "source_len": 3314
+  },
+  {
+    "index": 14,
+    "cell_type": "markdown",
+    "filename": "14_Step_8__Training_Loop_with_Validation.md",
+    "title": "Step 8: Training Loop with Validation",
+    "source_len": 210
+  },
+  {
+    "index": 15,
+    "cell_type": "code",
+    "filename": "15_Hyperparameters_for_spread_commission_awareness.py",
+    "title": "Hyperparameters for spread/commission awareness",
+    "source_len": 3371
+  },
+  {
+    "index": 16,
+    "cell_type": "markdown",
+    "filename": "16_Step_9__Final_Evaluation_on_All_Datasets.md",
+    "title": "Step 9: Final Evaluation on All Datasets",
+    "source_len": 295
+  },
+  {
+    "index": 17,
+    "cell_type": "code",
+    "filename": "17_Get_multi_output_predictions__loc_is__batch__pred_len__4.py",
+    "title": "Get multi-output predictions: loc is [batch, pred_len, 4]",
+    "source_len": 5609
+  },
+  {
+    "index": 18,
+    "cell_type": "markdown",
+    "filename": "18_Step_10__Visualization_of_Results.md",
+    "title": "Step 10: Visualization of Results",
+    "source_len": 223
+  },
+  {
+    "index": 19,
+    "cell_type": "code",
+    "filename": "19_To_avoid_plotting_gaps__like_weekends___we_plot_against_a_simple_integer_sequence.py",
+    "title": "To avoid plotting gaps (like weekends), we plot against a simple integer sequence",
+    "source_len": 2968
+  },
+  {
+    "index": 20,
+    "cell_type": "markdown",
+    "filename": "20_Step_11__Save_Final_Artifacts_for_Deployment.md",
+    "title": "Step 11: Save Final Artifacts for Deployment",
+    "source_len": 46
+  },
+  {
+    "index": 21,
+    "cell_type": "code",
+    "filename": "21_Save_model_weights.py",
+    "title": "Save model weights",
+    "source_len": 2754
+  }
+]
