@@ -1,23 +1,21 @@
 # --- Step 1: Setup Environment & Install Dependencies ---
-import os, sys, subprocess
+import os, sys
 
 REPO_URL = "https://github.com/Turkcoder123/tradingbot-ml.git"
 CLONE_DIR = "/content/tradingbot-ml"
 
-# Once clone dene, calismazsa Kaggle/Local
-if not os.path.exists(CLONE_DIR):
-    result = subprocess.run(
-        ["git", "clone", REPO_URL, CLONE_DIR],
-        capture_output=True, text=True, timeout=30
-    )
-    clone_success = result.returncode == 0
-else:
-    clone_success = True
+# Her platformda calisacak basit mantik
+# 1) /kaggle/working varsa -> Kaggle
+# 2) /content varsa -> Colab, clone dene
+# 3) hicbiri yoksa -> Local
 
-if clone_success:
-    os.chdir(CLONE_DIR)
-elif os.path.exists('/kaggle/working'):
+if os.path.exists('/kaggle/working'):
     os.chdir('/kaggle/working')
+elif os.path.exists('/content'):
+    if not os.path.exists(CLONE_DIR):
+        os.system(f'git clone --depth 1 {REPO_URL} {CLONE_DIR} > /dev/null 2>&1')
+    if os.path.exists(CLONE_DIR):
+        os.chdir(CLONE_DIR)
 
 print("Working directory:", os.getcwd())
 
