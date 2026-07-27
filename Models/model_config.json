@@ -5,22 +5,22 @@
   "cardinality": [
     0
   ],
-  "context_length": 30,
-  "d_model": 32,
+  "context_length": 288,
+  "d_model": 64,
   "decoder_attention_heads": 4,
-  "decoder_ffn_dim": 64,
+  "decoder_ffn_dim": 128,
   "decoder_layerdrop": 0.1,
   "decoder_layers": 2,
   "distribution_output": "student_t",
-  "dropout": 0.1,
+  "dropout": 0.2,
   "embedding_dimension": [
     0
   ],
   "encoder_attention_heads": 4,
-  "encoder_ffn_dim": 64,
+  "encoder_ffn_dim": 128,
   "encoder_layerdrop": 0.1,
   "encoder_layers": 2,
-  "feature_size": 13,
+  "feature_size": 37,
   "init_std": 0.02,
   "input_size": 1,
   "is_encoder_decoder": true,
@@ -40,8 +40,10 @@
   "num_static_categorical_features": 0,
   "num_static_real_features": 0,
   "num_time_features": 4,
-  "prediction_length": 1,
+  "prediction_length": 6,
   "scaling": "mean",
   "transformers_version": "4.53.2",
-  "use_cache": true
+  "use_cache": true,
+  "num_outputs": 4,
+  "target_columns": ["Open", "High", "Low", "Close"]
 }
