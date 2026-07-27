@@ -12,17 +12,6 @@ if not os.path.exists(file_path):
             file_path = p
             break
 print(f'Veri: {file_path}')
-    'Data/EURUSD_5m_10Yea.csv',
-    '/content/drive/MyDrive/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',
-    '/content/drive/MyDrive/Colab Notebooks/tradingbot-ml/Data/EURUSD_5m_10Yea.csv',
-    '../Data/EURUSD_5m_10Yea.csv',
-]
-for p in possible_paths:
-    if os.path.exists(p):
-        print(f'Veri dosyasi bulundu: {p}')
-        break
-    # Kullaniciya sor
-    else:
 df_raw = pd.read_csv(file_path)
 
 # Parse timestamp
