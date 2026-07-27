@@ -26,6 +26,28 @@ if IN_COLAB:
 else:
     print('Yerel ortamda calisiyor')
 
+# --- Colab Ortam Ayarı (GitHub uyumlu) ---
+import sys, os
+IN_COLAB = 'google.colab' in sys.modules
+if IN_COLAB:
+    # Colab GitHub'dan acildiginda /content/tradingbot-ml/ altinda olur
+    # Ama bazen dogrudan /content/ altinda da olabilir
+    if os.path.basename(os.getcwd()) != 'tradingbot-ml' and not os.path.exists('Data'):
+        if os.path.exists('/content/tradingbot-ml/TimeSeries_Transformer_EURUSD_Forecasting.ipynb'):
+            os.chdir('/content/tradingbot-ml')
+            print('-> /content/tradingbot-ml/')
+        else:
+            # GitHub'dan clone et
+            repo_url = 'https://github.com/Turkcoder123/tradingbot-ml.git'
+            print(f'Cloning {repo_url}...')
+            get_ipython().system(f'git clone {repo_url}')
+            os.chdir('tradingbot-ml')
+            print('-> /content/tradingbot-ml/')
+    print(f'Calisma dizini: {os.getcwd()}')
+    print(f'Data var: {os.path.isdir("Data")}')
+else:
+    print('Yerel ortam')
+
 !pip install transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib -q
 
 import pandas as pd
