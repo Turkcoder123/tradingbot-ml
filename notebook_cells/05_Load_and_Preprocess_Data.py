@@ -1,34 +1,12 @@
 # --- Step 3: Load and Preprocess Data (OHLCV + Multi-Timeframe) ---
 import os
-import sys
 
-# Dosya yolunu bul - GitHub'dan klonlandiginda calissin
-script_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else os.getcwd()
-# Proje kok dizini (tradingbot-ml)
-project_root = script_dir if script_dir.endswith('tradingbot-ml') else os.path.dirname(script_dir)
+# Colab'da cell_01 ile /content/tradingbot-ml dizinine klonlanip cd yapildi
+# Veri yolu: /content/tradingbot-ml/Data/EURUSD_5m_10Yea.csv
+file_path = 'Data/EURUSD_5m_10Yea.csv'
+assert os.path.exists(file_path), f"Veri dosyasi bulunamadi: {os.path.abspath(file_path)}"
+print(f'Veri: {os.path.abspath(file_path)}')
 
-# Aranacak yollar (oncelik sirasina gore)
-file_paths = [
-    os.path.join(project_root, 'Data', 'EURUSD_5m_10Yea.csv'),  # GitHub klonu
-    'Data/EURUSD_5m_10Yea.csv',                                  # Calisma dizini
-]
-
-file_path = None
-for p in file_paths:
-    if os.path.exists(p):
-        file_path = p
-        break
-
-if file_path is None:
-    # Son care: mevcut dizinde ve alt dizinlerde ara
-    for root, dirs, files in os.walk(os.getcwd()):
-        if 'EURUSD_5m_10Yea.csv' in files:
-            file_path = os.path.join(root, 'EURUSD_5m_10Yea.csv')
-            break
-
-print(f'Veri: {file_path}')
-assert file_path is not None, "EURUSD_5m_10Yea.csv bulunamadi!"
-assert os.path.exists(file_path), f"Dosya mevcut degil: {file_path}"
 df_raw = pd.read_csv(file_path)
 
 # Parse timestamp

@@ -1,4 +1,21 @@
-# --- Step 1: Install and Import Necessary Libraries ---
+# --- Step 1: Clone Repository and Install Dependencies ---
+
+# Colab'da GitHub'dan klonla (daha once klonlanmadiysa)
+import os, sys
+REPO_URL = "https://github.com/Turkcoder123/tradingbot-ml.git"
+CLONE_DIR = "/content/tradingbot-ml"
+
+if not os.path.exists(CLONE_DIR):
+    print(f"Cloning repository from {REPO_URL}...")
+    !git clone {REPO_URL} {CLONE_DIR}
+    %cd {CLONE_DIR}
+else:
+    print(f"Repository already cloned at {CLONE_DIR}")
+    %cd {CLONE_DIR}
+    # Guncel degisiklikleri cek
+    !git pull
+
+print(f"Current working directory: {os.getcwd()}")
 
 !pip install transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib -q
 
