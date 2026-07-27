@@ -9,9 +9,9 @@
   {
     "index": 1,
     "cell_type": "code",
-    "filename": "01_Notebook_un_bulundugu_klasore_git.py",
-    "title": "Notebook'un bulundugu klasore git",
-    "source_len": 2707
+    "filename": "01_We_will_use_TimeSeriesTransformerForPrediction_which_includes_the_head_for_forecasting.py",
+    "title": "We will use TimeSeriesTransformerForPrediction which includes the head for forecasting",
+    "source_len": 1057
   },
   {
     "index": 2,
@@ -65,9 +65,9 @@
   {
     "index": 9,
     "cell_type": "code",
-    "filename": "09_Scale_target__Close_price__fit_on_training_data_ONLY.py",
-    "title": "Scale target (Close price) - fit on training data ONLY",
-    "source_len": 1129
+    "filename": "09_OHLC_Scaler__Close_a_fit_edilir__OHLC_nin_4_kanalina_uygulanir.py",
+    "title": "=== OHLC Scaler (Close'a fit edilir, OHLC'nin 4 kanalina uygulanir) ===",
+    "source_len": 1270
   },
   {
     "index": 10,
