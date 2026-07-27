@@ -13,8 +13,6 @@ if IN_COLAB:
     if not os.path.exists('Data'):
         # Drive'da ara
         possible = [
-            '/content/drive/MyDrive/tradingbot-ml',
-            '/content/drive/MyDrive/Colab Notebooks/tradingbot-ml',
         ]
         for p in possible:
             if os.path.exists(os.path.join(p, 'Data')):

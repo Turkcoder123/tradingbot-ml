@@ -94,7 +94,7 @@ FEATURE_COLUMNS = [
     'range_ratio_5m_vs_1h', 'range_ratio_5m_vs_1d'
 ]
 TARGET_COLUMNS = ['Open', 'High', 'Low', 'Close']
-HISTORY_LENGTH = CONTEXT_LENGTH + max(LAGS_SEQUENCE)
+HISTORY_LENGTH = 295  # 288 (context) + 7 (max lag)
 print(f'Features: {len(FEATURE_COLUMNS)}, Targets: {len(TARGET_COLUMNS)} (OHLC)')
 print(f'HISTORY_LENGTH: {HISTORY_LENGTH}')
 
