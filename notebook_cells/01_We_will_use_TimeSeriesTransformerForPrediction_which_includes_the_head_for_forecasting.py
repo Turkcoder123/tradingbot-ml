@@ -1,30 +1,27 @@
-# --- Step 1: Clone Repository & Install Dependencies ---
-import os, sys
-
-# Platforma gore klon dizini (sadece burasi degisir)
-# Colab -> /content, Kaggle -> /kaggle/working, Local -> . (gecerli dizin)
-if os.path.exists('/content'):
-    CLONE_DIR = '/content/tradingbot-ml'
-elif os.path.exists('/kaggle/working'):
-    CLONE_DIR = '/kaggle/working/tradingbot-ml'
-else:
-    CLONE_DIR = 'tradingbot-ml'  # Local: mevcut dizin altinda
+# --- Step 1: Setup Environment & Install Dependencies ---
+import os, sys, subprocess
 
 REPO_URL = "https://github.com/Turkcoder123/tradingbot-ml.git"
+CLONE_DIR = "/content/tradingbot-ml"
 
+# Once clone dene, calismazsa Kaggle/Local
 if not os.path.exists(CLONE_DIR):
-    print(f"Cloning repository from {REPO_URL}...")
-    !git clone {REPO_URL} {CLONE_DIR}
+    result = subprocess.run(
+        ["git", "clone", REPO_URL, CLONE_DIR],
+        capture_output=True, text=True, timeout=30
+    )
+    clone_success = result.returncode == 0
 else:
-    print(f"Repository already cloned. Pulling latest changes...")
-    %cd {CLONE_DIR}
-    !git pull
-    %cd ..
+    clone_success = True
 
-%cd {CLONE_DIR}
-print(f"Working directory: {os.getcwd()}")
+if clone_success:
+    os.chdir(CLONE_DIR)
+elif os.path.exists('/kaggle/working'):
+    os.chdir('/kaggle/working')
 
-!pip install transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib -q
+print("Working directory:", os.getcwd())
+
+get_ipython().system('pip install -q transformers accelerate torch scikit-learn pandas numpy matplotlib tqdm joblib')
 
 import pandas as pd
 import numpy as np
