@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TelegramListener.Pages.MainPage"
+             Title="Telegram Mesaj Dinleyici">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Mesaj Dinleme Durumu" 
+               FontSize="Large" 
+               HorizontalOptions="Center" />
+
+        <Frame>
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="StatusText" 
+                       Text="Durum: Beklemede" 
+                       FontAttributes="Bold" />
+                
+                <Label x:Name="LastMessageText" 
+                       Text="Son mesaj: Yok" 
+                       FontSize="Small" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Button x:Name="StartStopButton" 
+                Text="Dinlemeyi Başlat" 
+                Clicked="OnStartStopClicked" 
+                HorizontalOptions="Center" />
+
+        <Button Text="Sistem Tepsisine Küçült" 
+                Clicked="OnMinimizeToTrayClicked" 
+                HorizontalOptions="Center" />
+
+        <CollectionView x:Name="MessagesCollection" 
+                        HeightRequest="300">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="5" Padding="10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Sender}" 
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Content}" />
+                            <Label Text="{Binding Timestamp, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" 
+                                   FontSize="Small" 
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
